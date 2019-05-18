@@ -20,8 +20,8 @@ export class Selection extends Component {
 		return (
       <div className={classnames('selection-wrapper', 'centered')}>
 				<div className="inputs-wrapper">
-					<div>
-						<span>Enter Names:</span>
+					<div className={classnames('centered', 'selection-header')}>
+						<span>משתתפים</span>
 					</div>
 					<input defaultValue="מוטי"/>
 					<input defaultValue="נתי"/>
@@ -29,8 +29,8 @@ export class Selection extends Component {
 					<input defaultValue="עמי"/>
 					<input defaultValue="שחר"/>
 					<input/>
-					<div>
-						<button onClick={() => this.onStartClicked()}>Start</button>
+					<div className="centered">
+						<button onClick={() => this.onStartClicked()}>התחל</button>
 					</div>
 				</div>
 			</div>

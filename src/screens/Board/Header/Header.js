@@ -6,7 +6,7 @@ export class Header extends Component {
 		const {onResetLastRound} = this.props;
     return (
 			<div className="board-header">
-				<button className="reset-round" onClick={onResetLastRound}>Reset</button>
+				<button className="reset-round" onClick={onResetLastRound}>חזור</button>
 			</div>
     );
   }
