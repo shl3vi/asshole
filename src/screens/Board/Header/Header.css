@@ -1,0 +1,15 @@
+.board-header {
+	background: #373a6d;
+	height: 6%;
+}
+
+.reset-round {
+	color: white;
+	background: transparent;
+	border: none;
+	font-size: 26px;
+}
+
+.reset-round:hover {
+	cursor: pointer;
+}

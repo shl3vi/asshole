@@ -1,0 +1,8 @@
+.selection-wrapper {
+	height: 100%;
+}
+
+.inputs-wrapper {
+	display: flex;
+	flex-direction: column
+}

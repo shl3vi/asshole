@@ -1,0 +1,12 @@
+.player-line {
+}
+
+.player-line.clicked {
+	background: #b3cde0;
+}
+
+td {
+ line-height: 100%;
+ font-size: 5em;
+ border-bottom:1pt solid black;
+}
