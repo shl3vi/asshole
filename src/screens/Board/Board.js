@@ -4,6 +4,8 @@ import { PlayersList } from './PlayersList/PlayersList';
 import _ from 'lodash';
 import { Header } from './Header/Header';
 
+const ONE_MINUTE_IN_MS = 1000 * 60;
+
 export class Board extends Component {
 	constructor (props) {
 		super();
@@ -13,8 +15,20 @@ export class Board extends Component {
 			totalClicked: 0,
 			snapshots: [players, {endRound: true}],
 			lineHeight: (100 / props.players.length),
-			gamesPlayed: 0 
+			gamesPlayed: 0,
+			timeStarted: new Date().getTime(), 
+			timePassed: 0
 		}
+		this.timer();
+	}
+
+	timer() {
+		setTimeout(() => {
+			this.setState({
+				timePassed: new Date().getTime() - this.state.timeStarted
+			})
+			this.timer();
+		}, ONE_MINUTE_IN_MS);
 	}
 
 	createPlayers(playersNames) {
@@ -100,12 +114,13 @@ export class Board extends Component {
 	}
 
   render() {
-		const {players, lineHeight, gamesPlayed} = this.state;
+		const {players, lineHeight, gamesPlayed, timePassed} = this.state;
     return (
       <div className="board">
 				<Header 
 					onResetLastRound={() => this.onResetLastRound()}
 					gamesPlayed={gamesPlayed}
+					timePassed={timePassed}
 				/>
 				<PlayersList 
 					lineHeight={lineHeight}
