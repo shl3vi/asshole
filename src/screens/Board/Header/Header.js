@@ -9,6 +9,7 @@ export class Header extends Component {
 
 		const hoursPassed = Math.floor(timePassed / ONE_HOUR_IN_MS);
 		const minutesPassed = Math.floor((timePassed % ONE_HOUR_IN_MS)/60000);
+		const withLeadingZeros = n => ('00'+n).slice(-2);
 
     return (
 			<div className="board-header">
@@ -24,7 +25,7 @@ export class Header extends Component {
 				</div>
 				<div>
 					<span className="time-passed">
-						זמן משחק {hoursPassed}:{minutesPassed}
+						זמן משחק {withLeadingZeros(hoursPassed)}:{withLeadingZeros(minutesPassed)}
 					</span>
 				</div>
 			</div>
