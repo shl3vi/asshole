@@ -12,7 +12,8 @@ export class Board extends Component {
 			players,
 			totalClicked: 0,
 			snapshots: [players, {endRound: true}],
-			lineHeight: (100 / props.players.length)
+			lineHeight: (100 / props.players.length),
+			gamesPlayed: 0 
 		}
 	}
 
@@ -26,6 +27,20 @@ export class Board extends Component {
 			}
 		});
 		return players;
+	}
+
+	endGame(playersNew, snapshotsNew) {
+		this.props.players.forEach(name => {
+			playersNew[name].clicked = false;
+		})
+		snapshotsNew.push({endRound: true});
+
+		this.setState({
+			players: playersNew,
+			totalClicked: 0,
+			snapshots: snapshotsNew,
+			gamesPlayed: this.state.gamesPlayed + 1
+		})
 	}
 
 	onPlayerClicked(name) {
@@ -48,14 +63,12 @@ export class Board extends Component {
 		const snapshotsNew = [].concat(snapshots);
 		snapshotsNew.push(playersNew);
 
-		if (totalClickedNew === this.props.players.length) {
-			totalClickedNew = 0;
-			this.props.players.forEach(name => {
-				playersNew[name].clicked = false;
-			})
-			snapshotsNew.push({endRound: true});
-		}
 		console.log(snapshotsNew);
+
+		if (totalClickedNew === this.props.players.length) {
+			return this.endGame(playersNew, snapshotsNew);
+		}
+
 		this.setState({
 			players: playersNew,
 			totalClicked: totalClickedNew,
@@ -64,28 +77,36 @@ export class Board extends Component {
 	}
 
 	onResetLastRound() {
-		const {snapshots} = this.state;
+		const {snapshots, gamesPlayed} = this.state;
 		const snapshotsNew = [].concat(snapshots);
-		if (snapshotsNew[snapshotsNew.length - 1].endRound) {
-			if (snapshotsNew.length < 3) return;
+		let shouldDecreaseGamesCount = false;
+		
+		const isInitialState = snapshotsNew.length < 3;
+		const isNoOneClicked = snapshotsNew[snapshotsNew.length - 1].endRound;
+		if (isNoOneClicked && !isInitialState) {
 			snapshotsNew.pop();
+			shouldDecreaseGamesCount = true; 
 		}
+	
 		while (!snapshotsNew[snapshotsNew.length - 1].endRound) {
-			console.log('here');
 			snapshotsNew.pop();
 		}
 		this.setState({
 			players: snapshotsNew[snapshotsNew.length - 2],
 			totalClicked: 0,
-			snapshots: snapshotsNew
+			snapshots: snapshotsNew,
+			gamesPlayed: shouldDecreaseGamesCount ? gamesPlayed - 1 : gamesPlayed
 		})
 	}
 
   render() {
-		const {players, lineHeight} = this.state;
+		const {players, lineHeight, gamesPlayed} = this.state;
     return (
       <div className="board">
-				<Header onResetLastRound={() => this.onResetLastRound()}/>
+				<Header 
+					onResetLastRound={() => this.onResetLastRound()}
+					gamesPlayed={gamesPlayed}
+				/>
 				<PlayersList 
 					lineHeight={lineHeight}
 					onPlayerClicked={(name) => this.onPlayerClicked(name)}
