@@ -12,9 +12,21 @@ export class Header extends Component {
 
     return (
 			<div className="board-header">
-				<button className="reset-round" onClick={onResetLastRound}>חזור</button>
-				<button className="reset-round">משחקים: {gamesPlayed}</button>
-				<button className="reset-round">time passed: {hoursPassed}:{minutesPassed}</button>
+				<div>
+					<span className="reset-round">
+						<button onClick={onResetLastRound}>חזור</button>
+					</span>
+				</div>
+				<div>
+					<span className="games-played">
+						משחקים {gamesPlayed}
+					</span>
+				</div>
+				<div>
+					<span className="time-passed">
+						זמן משחק {hoursPassed}:{minutesPassed}
+					</span>
+				</div>
 			</div>
     );
   }

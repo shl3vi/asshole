@@ -1,15 +1,25 @@
 .board-header {
 	background: #373a6d;
 	height: 6%;
+	display: flex;
+	justify-content: space-between;
 }
 
-.reset-round {
-	color: white;
-	background: transparent;
+.reset-round button {
 	border: none;
+	background: transparent;
+}
+
+.board-header span,
+.board-header span button {
+	color: white;
 	font-size: 26px;
 }
 
-.reset-round:hover {
+.reset-round button:hover {
 	cursor: pointer;
+}
+
+.time-passed {
+	padding-right: 8px;
 }
