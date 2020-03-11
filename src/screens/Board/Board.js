@@ -62,7 +62,7 @@ export class Board extends Component {
 		if (players[name].clicked) {
 			return;
 		}
-		const playersNew = _.cloneDeep(players);;
+		const playersNew = _.cloneDeep(players);
 		
 		playersNew[name].clicked = true;
 		let totalClickedNew = totalClicked + 1;

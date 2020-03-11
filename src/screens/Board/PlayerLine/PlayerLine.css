@@ -10,3 +10,8 @@ td {
  font-size: 6em;
  border-bottom:1pt solid black;
 }
+
+.player-line table td {
+  font-size: 0.15em;
+  border-bottom: none;
+}

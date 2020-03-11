@@ -12,10 +12,23 @@ export class PlayerLine extends Component {
 				</div>
 			</td>
 		);
-	}
+  }
+
+	createPositionsStatisticsTdContent(positions) {
+		return (
+      <table>
+        {positions.map((position,i) => {
+          return <tr>
+            <td><span>{position}</span></td>
+          </tr>
+        })}
+      </table>
+		);
+  }
+
   render() {
-		const {player, handleClick, lineHeight, gap} = this.props;
-		const {name, score, clicked} = player;
+    const {player, handleClick, lineHeight, gap} = this.props;
+		const {name, score, clicked, positions} = player;
     return (
 			<tr
 				style={ { height:  `${lineHeight}%`} }
@@ -25,6 +38,7 @@ export class PlayerLine extends Component {
 				{this.createTd(`+${gap}`)}
 				{this.createTd(score)}
 				{this.createTd(name)}
+        {this.createTd(this.createPositionsStatisticsTdContent(positions))}
 			</tr>
     );
   }
