@@ -27,6 +27,8 @@ export class PlayersList extends Component {
 							playerScore - players[sortedPlayers[i+1]].score;
 
 						return <PlayerLine 
+							isSomePlayerClicked={Object.keys(players).some(name => players[name].clicked)}
+							currentPosition={i + 1}
 							key={name}
 							lineHeight={lineHeight}
 							player={players[name]}

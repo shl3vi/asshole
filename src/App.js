@@ -38,6 +38,7 @@ export class App extends Component {
 		}
 		else if (screen === ScreenNames.board) {
 			return <Board 
+				timeStarted={new Date().getTime()} 
 				players={playersNames}
 			/>
 		}

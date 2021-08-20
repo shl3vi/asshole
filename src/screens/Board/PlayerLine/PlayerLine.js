@@ -8,16 +8,52 @@ export class PlayerLine extends Component {
 		return (
 			<td>
 				<div className={classNames('centered', 'td-wrapper')}>
-					<div><span>{val}</span></div>
+					<div>
+						<span>
+							{val}
+						</span>
+					</div>
 				</div>
 			</td>
 		);
   }
 
+  createNameTd = (val, {withCrown, withClown}, isStarted) => {
+	return this.createTd(<div className='td-content-container'>
+			{val}
+			{isStarted && withCrown && <img className={classNames("status-image","status-image-crown")} src='./crown.png'/>}
+			{isStarted && withClown && <img className={classNames("status-image","status-image-clown")} src='./clown.png'/>}
+		</div>	)
+  }
+
+  createCardsTd = (lastPosition, numOfPlayers, isSomePlayerClicked) => {
+	  console.log(lastPosition);
+	  const aCard = (color) => <img className={classNames("card")} src={`./${color}_card.png`}/>
+	  const blueCard = aCard('blue');
+	  const redCard = aCard('red');
+	
+	  if (!isSomePlayerClicked) {
+		  if (lastPosition === 1) {
+			  return this.createTd(<div>{blueCard}{blueCard}</div>);
+		  }
+		  if (lastPosition === 2) {
+			  return this.createTd(<div>{blueCard}</div>);
+		  }
+		  if (lastPosition === numOfPlayers - 1) {
+			  return this.createTd(<div>{redCard}</div>);
+		  }
+		  if (lastPosition === numOfPlayers) {
+			  return this.createTd(<div>{redCard}{redCard}</div>);
+		  }
+	  }
+	
+	return this.createTd(<div className={"cards-placeholder"}></div>);
+  }
+
 	createPositionsStatisticsTdContent(positions) {
-		return (
-      <table>
-        {positions.map((position,i) => {
+		return this.createTd(
+      <table className={`positions-statistics-table-${positions.length}`}>
+        {positions.map((position) => {
           return <tr>
             <td><span>{position}</span></td>
           </tr>
@@ -27,8 +63,9 @@ export class PlayerLine extends Component {
   }
 
   render() {
-    const {player, handleClick, lineHeight, gap} = this.props;
-		const {name, score, clicked, positions} = player;
+    const {player, handleClick, lineHeight, gap, currentPosition, isSomePlayerClicked} = this.props;
+		const {name, score, clicked, positions, lastPosition} = player;
+		const isStarted = positions.some(position => position);
     return (
 			<tr
 				style={ { height:  `${lineHeight}%`} }
@@ -37,8 +74,9 @@ export class PlayerLine extends Component {
 				onClick={_e => handleClick(name)}>
 				{this.createTd(`+${gap}`)}
 				{this.createTd(score)}
-				{this.createTd(name)}
-        {this.createTd(this.createPositionsStatisticsTdContent(positions))}
+				{this.createNameTd(name, {withCrown: currentPosition === 1, withClown: currentPosition === positions.length}, isStarted)}
+				{this.createCardsTd(lastPosition, positions.length, isSomePlayerClicked)}
+        		{this.createPositionsStatisticsTdContent(positions)}
 			</tr>
     );
   }

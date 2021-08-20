@@ -16,7 +16,6 @@ export class Board extends Component {
 			snapshots: [players, {endRound: true}],
 			lineHeight: (100 / props.players.length),
 			gamesPlayed: 0,
-			timeStarted: new Date().getTime(), 
 			timePassed: 0
 		}
 		this.timer();
@@ -25,7 +24,7 @@ export class Board extends Component {
 	timer() {
 		setTimeout(() => {
 			this.setState({
-				timePassed: new Date().getTime() - this.state.timeStarted
+				timePassed: new Date().getTime() - this.props.timeStarted
 			})
 			this.timer();
 		}, ONE_MINUTE_IN_MS);
@@ -68,6 +67,7 @@ export class Board extends Component {
 		let totalClickedNew = totalClicked + 1;
 		
 		const position = totalClicked;
+		playersNew[name].lastPosition = position + 1;
 		playersNew[name].positions = [].concat(playersNew[name].positions);
 		playersNew[name].positions[position]++;
 

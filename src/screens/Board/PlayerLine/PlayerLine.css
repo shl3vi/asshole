@@ -15,3 +15,44 @@ td {
   font-size: 0.15em;
   border-bottom: none;
 }
+
+.status-image {
+  position: absolute;
+}
+
+.status-image-crown {
+  transform: rotate(29deg);
+  top: -17px;
+  right: -45px;
+  height: 70px;
+  width: 70px;
+}
+
+.status-image-clown {
+  transform: rotate(21deg);
+  top: -29px;
+  right: -35px;
+  height: 100px;
+  width: 100px;
+}
+
+.td-content-container {
+  position: relative;
+}
+
+.card {
+  height: 70px;
+  width: 70px;
+}
+
+.cards-placeholder {
+  width: 150px;
+}
+
+.positions-statistics-table-5 {
+  font-size: 200px;
+}
+
+.positions-statistics-table-6 {
+  font-size: 160px;
+}
